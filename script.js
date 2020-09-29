@@ -60,7 +60,6 @@ beginBtn.addEventListener("click", function (event) {
 
 // event listener for the answer buttons
 document.addEventListener("click", function (event) {
-    event.preventDefault();
     if (event.target.id === "answer") {
 
         if (event.target.value == questions[questionNum - 1].correctAnswer) {

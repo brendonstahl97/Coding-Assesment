@@ -22,27 +22,27 @@ var questions = [
     },
 
     {
-        question: "Question 2",
-        answers: ["Boolean", "String", "While", "Integer"],
+        question: "_______ is the process of finding errors and fixing them within a program.",
+        answers: ["Compiling", "Executing", "Debugging", "Scanning"],
+        correctAnswer: 3
+    },
+
+    {
+        question: "What is the process of planning out your code without actually writing any code called?",
+        answers: ["Pseudocode", "Planning", "Development", "Staging"],
         correctAnswer: 1
     },
 
     {
-        question: "Question 3",
-        answers: ["Boolean", "String", "While", "Integer"],
-        correctAnswer: 1
-    },
-
-    {
-        question: "Question 4",
-        answers: ["Boolean", "String", "While", "Integer"],
-        correctAnswer: 1
+        question: "Which page of the Chrome developer tools displays error messages caused by a program?",
+        answers: ["Application", "Console", "Sources", "Elements"],
+        correctAnswer: 2
     },
     
     {
-        question: "Question 5",
-        answers: ["Boolean", "String", "While", "Integer"],
-        correctAnswer: 1
+        question: "Which is a correct variable declaration in Javascript?",
+        answers: ["var = isGold true;", "isGold = true;", "var = true;", "var isGold = true;"],
+        correctAnswer: 4
     }
 ]
 

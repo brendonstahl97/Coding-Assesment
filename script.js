@@ -6,7 +6,12 @@ var titleEl = document.getElementById("title");
 var answerDiv = document.getElementById("answers");
 
 var beginBtn = document.getElementById("beginBtn");
+
 var questionNum = 0;
+var score = 0;
+var secondsLeft = 75;
+
+var timerInterval;
 
 //array of objects for each question
 var questions = [
@@ -15,25 +20,29 @@ var questions = [
         answers: ["Boolean", "String", "While", "Integer"],
         correctAnswer: 3
     },
+
     {
         question: "Question 2",
         answers: ["Boolean", "String", "While", "Integer"],
-        correctAnswer: 0
+        correctAnswer: 1
     },
+
     {
         question: "Question 3",
         answers: ["Boolean", "String", "While", "Integer"],
-        correctAnswer: 0
+        correctAnswer: 1
     },
+
     {
         question: "Question 4",
         answers: ["Boolean", "String", "While", "Integer"],
-        correctAnswer: 0
+        correctAnswer: 1
     },
+    
     {
         question: "Question 5",
         answers: ["Boolean", "String", "While", "Integer"],
-        correctAnswer: 0
+        correctAnswer: 1
     }
 ]
 
@@ -53,6 +62,14 @@ beginBtn.addEventListener("click", function (event) {
 document.addEventListener("click", function (event) {
     event.preventDefault();
     if (event.target.id === "answer") {
+
+        if (event.target.value == questions[questionNum - 1].correctAnswer) {
+            score++;
+        } else {
+            secondsLeft = secondsLeft - 5;
+            timeEl.textContent = "Time: " + secondsLeft;
+        }
+
         nextQuestion();
     }
 })
@@ -60,34 +77,35 @@ document.addEventListener("click", function (event) {
 //-----------------Functions
 // timer for test
 function setTime() {
-    var secondsLeft = 75;
+    secondsLeft = 75;
     timeEl.textContent = "Time: " + secondsLeft;
 
-    var timerInterval = setInterval(function () {
+    timerInterval = setInterval(function () {
         secondsLeft--;
         timeEl.textContent = "Time: " + secondsLeft;
 
         if (secondsLeft === 0) {
-            clearInterval(timerInterval);
+            finishTest();
         }
 
     }, 1000);
 }
 
-// runs the test
+// sets up the test
 function setUpTest() {
     questionNum = 0;
 
     for (let i = 0; i < 4; i++) {
         var btn = document.createElement("button");
-        btn.id = i + 1;
+        btn.value = i + 1;
         btn.setAttribute("id", "answer");
         answerDiv.appendChild(btn);
     }
-    // questionEL.textContent = questions[questionNum-1].question;
     nextQuestion();
 }
 
+
+//Transition to the next question
 function nextQuestion() {
 
     if (questionNum === 5) {
@@ -104,6 +122,43 @@ function nextQuestion() {
 
 }
 
+function finishTest() {
+    answerDiv.innerHTML = "";
 
+    if (secondsLeft > 0) {
+        score = score * secondsLeft;
+    }
 
+    questionEL.textContent = "Score: " + score;
 
+    clearInterval(timerInterval);
+
+    titleEl.textContent = "Enter your initials to save your score:"
+
+    var form = document.createElement("form");
+    answerDiv.appendChild(form);
+
+    var initials = document.createElement("input");
+    form.appendChild(initials);
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var scoreObj = {
+            name: initials.value,
+            score: score
+        }
+
+        var highscores = JSON.parse(localStorage.getItem("highscores")) || [];
+
+        highscores.push(scoreObj);
+        highscores.sort((a, b) => { b.score - a.score })
+        highscores.splice(5);
+
+        localStorage.setItem("highscores", JSON.stringify(highscores));
+
+        window.location.href = "highscore.html";
+
+    })
+
+}

@@ -8,15 +8,12 @@ highscores.forEach(element => {
     var rowName = document.createElement("td");
     var rowScore = document.createElement("td");
 
-
     rowName.textContent = element.name;
     rowScore.textContent = element.score;
 
     tableEl.appendChild(newRow);
     newRow.appendChild(rowName);
     newRow.appendChild(rowScore);
-
-
 });
 
 function resetHighscores() {

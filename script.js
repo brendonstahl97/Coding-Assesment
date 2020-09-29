@@ -122,6 +122,7 @@ function nextQuestion() {
 
 }
 
+    //Creates the score submission elements and houses instructions for storing score data in local storage
 function finishTest() {
     answerDiv.innerHTML = "";
 
@@ -152,7 +153,7 @@ function finishTest() {
         var highscores = JSON.parse(localStorage.getItem("highscores")) || [];
 
         highscores.push(scoreObj);
-        highscores.sort((a, b) => { b.score - a.score })
+        highscores.sort(function(a, b) {return b.score - a.score})
         highscores.splice(5);
 
         localStorage.setItem("highscores", JSON.stringify(highscores));
